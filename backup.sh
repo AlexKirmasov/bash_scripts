@@ -1,6 +1,11 @@
 #!/bin/bash
+
+# load oracle user profile
 . /home/oracle/.bash_profile
+
+# set variables
 name=`date +%d%m%y`
+
 echo "===================="
 echo -e "= \e[1;31mBackup is begin!\e[0m ="
 echo "===================="
@@ -18,11 +23,9 @@ echo "================================================"
 echo ""
 cd /opt/ora10g/archive
 
-# test variant
 tar czvf archive-$name.tar.gz *.dbf
 mv archive-$name.tar.gz ../arc_temp/
 rm -rf *.dbf
-#mv * /opt/ora10g/arc_temp/
 
 cd /opt/ora10g/scripts/
 echo "====================================================="
@@ -48,19 +51,7 @@ echo -e "= \e[1;31mCopying archive to backup-servers\e[0m ="
 echo "====================================="
 echo ""
 cd /opt/ora10g/arc_base/
-
-    if [ -d /mnt/winserver/oracle ];
-	then
-	    echo "================================"
-	    echo -e "= \e[1;31mCopying archive to winserver\e[0m ="
-	    echo "================================"
-	    echo ""
-	    cp -r $name /mnt/winserver/oracle/server/base/
-	else
-	    echo -e "\e[1;31mWinserver unavailable!\e[0m"
-	    echo ""
-    fi
-    
+       
     if [ -d /mnt/store/backup/oracle/server ];
 	then
 	    echo "================================"
